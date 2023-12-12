@@ -3,17 +3,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-const WorkoutModel = require('../models/WorkoutModel.js');
+const ExerciseModel = require('../models/ExerciseModel.js');
 const router = express.Router();
 
 router.use(express.json());
 
-// CREATE a workout
+// CREATE a exercise
 
-// READ all workouts
+// READ all exercises
 
-// UPDATE a workout
+// UPDATE a exercise
 
-// DELETE a workout
+// DELETE a exercise
 
 module.exports = router;
