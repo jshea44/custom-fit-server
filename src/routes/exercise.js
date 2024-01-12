@@ -42,6 +42,18 @@ router.get('/', async (req, res) => {
   }
 });
 
+// READ an exercise
+router.get('/:exerciseId', async (req, res) => {
+  const { exerciseId } = req.params;
+  try {
+    let documents = await ExerciseModel.findById(exerciseId);
+    res.json(documents);
+  } catch (error) {
+    console.error('Error: ', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 // UPDATE a exercise
 router.patch('/:exerciseId', async (req, res) => {
   const { exerciseId } = req.params;
