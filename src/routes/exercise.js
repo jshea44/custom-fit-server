@@ -43,6 +43,33 @@ router.get('/', async (req, res) => {
 });
 
 // UPDATE a exercise
+router.patch('/:exerciseId', async (req, res) => {
+  const { exerciseId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(exerciseId)) {
+    res.status(400).send('Invalid exercise Id.');
+    return;
+  }
+
+  try {
+    const updatedData = req.body;
+
+    let result = await ExerciseModel.findByIdAndUpdate(
+      exerciseId,
+      updatedData,
+      { new: true }
+    );
+
+    if (!result) {
+      res.status(404).send('Exercise not found');
+    } else {
+      res.json(result);
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 // DELETE an exercise
 router.delete('/:exerciseId', async (req, res) => {
