@@ -8,6 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 const exerciseRouter = require('./src/routes/exercise.js');
+const workoutRouter = require('./src/routes/workout.js');
 
 mongoose
   .connect(process.env.MONGODB_URI, {
@@ -19,7 +20,9 @@ mongoose
 
 app.use(cors());
 app.use(express.json());
+
 app.use('/exercise', exerciseRouter);
+app.use('/workout', workoutRouter);
 
 app.listen(PORT, () => {
   console.log('Server is running on port ::', PORT);
