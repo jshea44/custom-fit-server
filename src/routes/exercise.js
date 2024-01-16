@@ -66,16 +66,16 @@ router.patch('/:exerciseId', async (req, res) => {
   try {
     const updatedData = req.body;
 
-    let result = await ExerciseModel.findByIdAndUpdate(
+    let documents = await ExerciseModel.findByIdAndUpdate(
       exerciseId,
       updatedData,
       { new: true }
     );
 
-    if (!result) {
+    if (!documents) {
       res.status(404).send('Exercise not found');
     } else {
-      res.json(result);
+      res.json(documents);
     }
   } catch (error) {
     console.error(error);
