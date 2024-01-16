@@ -17,6 +17,7 @@ router.post('/', async (req, res) => {
   });
   try {
     let document = await workout.save();
+    res.json(document);
   } catch (error) {
     console.error('Error', error);
     res.status(500).send('Internal Server Error');
@@ -24,6 +25,15 @@ router.post('/', async (req, res) => {
 });
 
 // READ all workouts
+router.get('/', async (req, res) => {
+  try {
+    let documents = await WorkoutModel.find({});
+    res.json(documents);
+  } catch (error) {
+    console.error('Error', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 // READ a single workout
 

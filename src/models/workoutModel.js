@@ -3,14 +3,17 @@
 const mongoose = require('mongoose');
 const ExerciseModel = require('./ExerciseModel.js');
 
-const WorkoutSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
+const WorkoutSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    exercises: [ExerciseModel.schema],
   },
-  exercises: [ExerciseModel.schema],
-});
+  { collection: 'workouts' }
+);
 
-const WorkoutModel = mongoose.model('Workout', WorkoutSchema);
+const WorkoutModel = mongoose.model('Workout', WorkoutSchema, workouts);
 
 module.exports = WorkoutModel;
