@@ -77,5 +77,25 @@ router.patch('/:workoutId', async (req, res) => {
 });
 
 // DELETE a workout
+router.delete('/:workoutId', async (req, res) => {
+  const { workoutId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(workoutId)) {
+    res.status(400).send('Invalid workout Id.');
+    return;
+  }
+
+  try {
+    let result = await WorkoutModel.findByIdAndDelete(workoutId);
+    if (!result) {
+      res.status(400).send('Workout not found');
+    } else {
+      res.status(204).send('Workout deleted successfully.');
+    }
+  } catch (error) {
+    console.error('Error', error);
+    res.status(501);
+  }
+});
 
 module.exports = router;
