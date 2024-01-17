@@ -9,6 +9,18 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    email: {
+      type: String,
+      required: false,
+    },
+    age: {
+      type: Number,
+      required: false,
+    },
+    weight: {
+      type: Number,
+      required: false,
+    },
     workouts: [WorkoutModel.schema],
   },
   { collection: 'users' }
