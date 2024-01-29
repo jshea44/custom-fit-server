@@ -16,7 +16,7 @@ router.post('/signup', async (req, res) => {
 
 // POST request to signin using basic auth
 router.post('/signin', basicAuth, async (req, res) => {
-  // send status for success
+  res.status(200).send(req.user);
 });
 
 modules.exports = router;
