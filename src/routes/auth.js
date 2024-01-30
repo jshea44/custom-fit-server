@@ -8,9 +8,12 @@ const router = express.Router();
 // POST request to signup using basic auth
 router.post('/signup', async (req, res) => {
   try {
-    // create a user
+    console.log(req.body);
+    let newUser = await UserModel.ceate(req.body);
+    res.status(201).json(newUser);
   } catch (error) {
-    // send error
+    console.error('Something went wrong with /signup', error);
+    res.status(400).send('Bad Request');
   }
 });
 
