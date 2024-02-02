@@ -3,9 +3,9 @@
 const supertest = require('supertest');
 const app = require('../server.js').app;
 const mongoose = require('mongoose');
-const { UserModel } = require('../src/models');
+const UserModel = require('../src/models/UserModel.js');
 const base64 = require('base-64');
-require('dotenv').config();)
+require('dotenv').config();
 
 const request = supertest(app);
 
@@ -23,10 +23,24 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-beforeEach(async() => {
+beforeEach(async () => {
   testUser = await UserModel.create({ username: 'test', password: 'test' });
 });
 
-afterEach(async() => {
+afterEach(async () => {
   await UserModel.deleteOne({ username: 'test' });
+});
+
+describe('Testing the auth workflow', () => {
+  test('Should be able to register a user on POST /signup', async () => {
+    let response = await request.post('/signup').send({
+      username: 'Test',
+      password: 'test123',
+    });
+
+    console.log(response);
+    console.log(response.body);
+    expect(response.status).toBe(201);
+    expect(response.body.username).toBe('Test');
+  });
 });

@@ -1,7 +1,7 @@
 'use strict';
 
 const base64 = require('base-64');
-const { UserModel } = require('../models');
+const UserModel = require('../models/UserModel.js');
 
 async function basicAuth(req, res, next) {
   if (!req.headers.authorization) {

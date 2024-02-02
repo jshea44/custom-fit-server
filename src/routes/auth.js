@@ -2,7 +2,7 @@
 
 const express = require('express');
 const basicAuth = require('../middleware/basic.js');
-const { UserModel } = require('../models');
+const UserModel = require('../models/UserModel.js');
 const router = express.Router();
 
 // POST request to signup using basic auth
@@ -22,4 +22,4 @@ router.post('/signin', basicAuth, async (req, res) => {
   res.status(200).send(req.user);
 });
 
-modules.exports = router;
+module.exports = router;
