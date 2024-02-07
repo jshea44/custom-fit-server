@@ -1,13 +1,13 @@
 'use strict';
 
 const supertest = require('supertest');
-const app = require('../server.js');
+const app = require('../server.js').app;
 const mongoose = require('mongoose');
 const UserModel = require('../src/models/UserModel');
 const base64 = require('base-64');
 require('dotenv').config();
 
-const request = supertest(app.app);
+const request = supertest(app);
 
 let testUser;
 
@@ -20,7 +20,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await mongoose.connection.close();
-  await app.close();
+  // await app.close();
 });
 
 beforeEach(async () => {
