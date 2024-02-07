@@ -1,18 +1,17 @@
 'use strict';
 
 const supertest = require('supertest');
-const app = require('../server.js').app;
+const app = require('../server.js');
 const mongoose = require('mongoose');
-const UserModel = require('../src/models/UserModel.js');
+const UserModel = require('../src/models/UserModel');
 const base64 = require('base-64');
 require('dotenv').config();
 
-const request = supertest(app);
+const request = supertest(app.app);
 
 let testUser;
 
 beforeAll(async () => {
-  // Connect to the MongoDB database
   await mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -21,6 +20,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await mongoose.connection.close();
+  await app.close();
 });
 
 beforeEach(async () => {
@@ -38,7 +38,6 @@ describe('Testing the auth workflow', () => {
       password: 'test123',
     });
 
-    console.log(response);
     console.log(response.body);
     expect(response.status).toBe(201);
     expect(response.body.username).toBe('Test');

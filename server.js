@@ -27,6 +27,9 @@ app.use('/exercise', exerciseRouter);
 app.use('/workout', workoutRouter);
 app.use(authRouter);
 
-app.listen(PORT, () => {
-  console.log('Server is running on port ::', PORT);
-});
+module.exports = {
+  app: app,
+  start: (PORT) => {
+    app.listen(PORT, () => console.log('Server is running on port ::', PORT));
+  },
+};
