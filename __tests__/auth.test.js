@@ -19,8 +19,9 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  await mongoose.connection.close();
+  // await mongoose.connection.close();
   // await app.close();
+  await mongoose.disconnect();
 });
 
 beforeEach(async () => {
@@ -40,6 +41,15 @@ describe('Testing the auth workflow', () => {
 
     console.log(response.body);
     expect(response.status).toBe(201);
+    expect(response.body.username).toBe('Test');
+  });
+
+  test('Should be able to login to existing user on POST /signin', async () => {
+    let encodedCredentials = base64.encode('Test:test123');
+    let response = await request.post('/signin').set({
+      Authorization: `Basic ${encodedCredentials}`,
+    });
+    expect(response.status).toBe(200);
     expect(response.body.username).toBe('Test');
   });
 });

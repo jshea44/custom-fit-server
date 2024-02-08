@@ -48,6 +48,16 @@ UserSchema.pre('save', async function (next) {
   }
 });
 
+UserSchema.statics.authenticateBasic = async function (username, password) {
+  let user = await this.findOne({ username });
+  let valid = await bcrypt.compare(password, user.password);
+  if (valid) {
+    return user;
+  } else {
+    throw new Error('Invalid credentials');
+  }
+};
+
 const UserModel = mongoose.model('User', UserSchema, 'users');
 
 module.exports = UserModel;
