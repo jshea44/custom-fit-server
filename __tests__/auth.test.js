@@ -52,4 +52,12 @@ describe('Testing the auth workflow', () => {
     expect(response.status).toBe(200);
     expect(response.body.username).toBe('Test');
   });
+
+  test('Token can be exchanged for secure data', async () => {
+    let response = await request.get('/secure').set({
+      Authorization: `Bearer ${testUser.token}`,
+    });
+    expect(response.status).toBe(200);
+    expect(response.body.data.username).toEqual('test');
+  });
 });
