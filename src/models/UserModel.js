@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 const WorkoutModel = require('./WorkoutModel.js');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const UserSchema = new mongoose.Schema(
   {
@@ -55,6 +56,16 @@ UserSchema.statics.authenticateBasic = async function (username, password) {
     return user;
   } else {
     throw new Error('Invalid credentials');
+  }
+};
+
+UserSchema.statics.authenticateToken = async function (token) {
+  let parsedToken = jwt.verify(token, SECRET);
+  const validUser = this.findOnd({ username: parsedToken.username });
+  if (validUser) {
+    return validUser;
+  } else {
+    throw new Error('Invalid token');
   }
 };
 

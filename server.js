@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3001;
 const exerciseRouter = require('./src/routes/exercise.js');
 const workoutRouter = require('./src/routes/workout.js');
 const authRouter = require('./src/routes/auth.js');
+const bearerAuth = require('./src/middleware/bearer.js');
 
 mongoose
   .connect(process.env.MONGODB_URI, {
@@ -26,6 +27,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/exercise', exerciseRouter);
 app.use('/workout', workoutRouter);
 app.use(authRouter);
+
+app.get('/secure', bearerAuth, (req, res) => {
+  res.send({ data: req.user });
+});
 
 module.exports = {
   app,
