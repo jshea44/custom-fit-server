@@ -12,8 +12,8 @@ Install all required dependencies with:
 
 Be sure to create a .env file with the following variables:
 
-> `MONGODB_URI` -> Set this to the connection URI for MongoDB Atlas from your account.
-> `PORT` -> The default PORT is localhost:3001, set to whichever port if free for you.
+- `MONGODB_URI` -> Set this to the connection URI for MongoDB Atlas from your account.
+- `PORT` -> The default PORT is localhost:3001, set to whichever port if free for you.
 
 To start server:
 
