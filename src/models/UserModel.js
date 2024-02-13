@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const WorkoutModel = require('./WorkoutModel.js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const SECRET = process.env.TOKEN_SECRET || 'tokensecretfortesting';
 
 const UserSchema = new mongoose.Schema(
   {
@@ -31,6 +32,10 @@ const UserSchema = new mongoose.Schema(
   },
   { collection: 'users' }
 );
+
+UserSchema.virtual('token').get(function () {
+  return jwt.sign({ username: this.username }, SECRET);
+});
 
 UserSchema.pre('save', async function (next) {
   const user = this;
@@ -61,7 +66,7 @@ UserSchema.statics.authenticateBasic = async function (username, password) {
 
 UserSchema.statics.authenticateToken = async function (token) {
   let parsedToken = jwt.verify(token, SECRET);
-  const validUser = this.findOnd({ username: parsedToken.username });
+  const validUser = this.findOne({ username: parsedToken.username });
   if (validUser) {
     return validUser;
   } else {
