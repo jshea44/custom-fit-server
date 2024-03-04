@@ -9,6 +9,10 @@ const WorkoutSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    description: {
+      type: String,
+      required: false,
+    },
     exercises: [ExerciseModel.schema],
   },
   { collection: 'workouts' }
