@@ -14,8 +14,8 @@ const bearerAuth = require('./src/middleware/bearer.js');
 
 mongoose
   .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
   })
   .then(() => console.log('MongoDB Connected'))
   .catch((err) => console.log(err));
@@ -32,9 +32,11 @@ app.get('/secure', bearerAuth, (req, res) => {
   res.send({ data: req.user });
 });
 
-module.exports = {
-  app,
-  start: (PORT) => {
-    app.listen(PORT, () => console.log('Server is running on port ::', PORT));
-  },
-};
+// module.exports = {
+//   app,
+//   start: (PORT) => {
+//     app.listen(PORT, () => console.log('Server is running on port ::', PORT));
+//   },
+// };
+
+app.listen(PORT, () => console.log('Server is running on port ::', PORT));
