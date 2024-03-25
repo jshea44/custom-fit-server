@@ -49,7 +49,7 @@ router.get('/:workoutId', async (req, res) => {
 });
 
 // UPDATE a workout
-router.patch('/:workoutId', async (req, res) => {
+router.put('/:workoutId', async (req, res) => {
   const { workoutId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(workoutId)) {
