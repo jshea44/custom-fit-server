@@ -10,10 +10,20 @@ router.use(express.json());
 
 // CREATE a exercise
 router.post('/', async (req, res) => {
-  let { name, sets, reps, weight, time, distance, isSuperset, isDropset } =
-    req.body;
+  let {
+    name,
+    description,
+    sets,
+    reps,
+    weight,
+    time,
+    distance,
+    isSuperset,
+    isDropset,
+  } = req.body;
   let exercise = new ExerciseModel({
     name,
+    description,
     sets,
     reps,
     weight,

@@ -9,23 +9,23 @@ const ExerciseSchema = new mongoose.Schema(
       required: true,
     },
     sets: {
-      type: Number,
+      type: String,
       required: false,
     },
     reps: {
-      type: Number,
+      type: String,
       required: false,
     },
     weight: {
-      type: Number,
+      type: String,
       required: false,
     },
     time: {
-      type: Number,
+      type: String,
       required: false,
     },
     distance: {
-      type: Number,
+      type: String,
       required: false,
     },
     isSuperset: {
@@ -35,6 +35,10 @@ const ExerciseSchema = new mongoose.Schema(
     isDropset: {
       type: Boolean,
       default: false,
+    },
+    description: {
+      type: String,
+      required: false,
     },
   },
   { collection: 'exercises' }

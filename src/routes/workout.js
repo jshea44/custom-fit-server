@@ -10,9 +10,10 @@ router.use(express.json());
 
 // CREATE a workout
 router.post('/', async (req, res) => {
-  let { name, exercises = [] } = req.body;
+  let { name, description, exercises = [] } = req.body;
   let workout = new WorkoutModel({
     name,
+    description,
     exercises,
   });
   try {
@@ -48,7 +49,7 @@ router.get('/:workoutId', async (req, res) => {
 });
 
 // UPDATE a workout
-router.patch('/:workoutId', async (req, res) => {
+router.put('/:workoutId', async (req, res) => {
   const { workoutId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(workoutId)) {
