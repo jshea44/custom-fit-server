@@ -8,7 +8,6 @@ const router = express.Router();
 // POST request to signup using basic auth
 router.post('/signup', async (req, res) => {
   try {
-    console.log(req.body);
     let newUser = await UserModel.create(req.body);
     res.status(201).json(newUser);
   } catch (error) {
