@@ -8,16 +8,11 @@ async function basicAuth(req, res, next) {
     next('Invalid login');
   }
 
-  let encodedString = req.headers.authorization.split(' ')[1];
+  let encodedCredentials = req.headers.authorization;
+  let encodedBase64 = encodedCredentials.split(' ')[1];
 
-  if (!encodedString) {
-    return res
-      .status(401)
-      .send('Unauthorized: Invalid Authorization header format');
-  }
-
-  let decodedString = base64.decode(encodedString);
-  let [username, password] = decodedString.split(':');
+  let decoded = base64.decode(encodedBase64);
+  let [username, password] = decoded.split(':');
   let validUser = await UserModel.authenticateBasic(username, password);
   if (validUser) {
     req.user = validUser;
